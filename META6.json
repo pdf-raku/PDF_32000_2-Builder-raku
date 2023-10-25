@@ -1,0 +1,25 @@
+{
+  "auth": "zef:dwarring",
+  "authors": [
+    "David Warring"
+  ],
+  "depends": [
+    "JSON::Fast",
+    "LibXML",
+    "Method::Also",
+    "PDF::Font::Loader",
+    "PDF::Tags",
+    "PDF::Tags::Reader"
+  ],
+  "depends": [
+  ],
+  "description": "PDF ISO-32000-2 miner. Builds PDF::ISO_32000_2",
+  "license": "Artistic-2.0",
+  "name": "PDF::ISO_32000_2::Builder",
+  "raku": "6.*",
+  "tags": [
+    "pdf"
+  ],
+  "source-url" : "git://github.com/pdf-raku/PDF-ISO_32000_2-Builder-raku.git",
+  "version" : "0.0.1"
+}
