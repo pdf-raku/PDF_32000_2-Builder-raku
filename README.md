@@ -5,8 +5,7 @@
 ### Push
 ```
 $ cd PDF_ISO_32000-2-Builder-raku
-$ export PDF=/my-copy/ISO_32000-2-2020_sponsored.pdf
-$ make # push and build
+$ make PDF=/my-copy/ISO_32000-2-2020_sponsored.pdf
 $ cd ../PDF_ISO_32000-raku
 $ git status
 $ # etc...
@@ -16,8 +15,7 @@ $ # etc...
 
 ```
 $ cd ../PDF_ISO_32000-2-raku
-$ export PDF=/my-copy/ISO_32000-2-2020_sponsored.pdf
-$ make # pull and build
+$ make PDF=/my-copy/ISO_32000-2-2020_sponsored.pdf
 $ git status
 $ # etc...
 ```

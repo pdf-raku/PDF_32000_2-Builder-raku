@@ -2,7 +2,7 @@ use v6;
 
 sub MAIN( Str:D :$root!, *@sources) {
     say '';
-    say "ISO_32000 Reference|Entries";
+    say "ISO_32000_2 Reference|Entries";
     say "----|-----";
     my %entries;
     @sources .= sort( -> $k {with ($k ~~ /<?after Table_>\d+/) {sprintf("%05d", .Int)} else { $k }} );
@@ -27,7 +27,7 @@ sub MAIN( Str:D :$root!, *@sources) {
     say '';
     say '## Entry to role mappings';
     say '';
-    say "Entry|ISO_32000 Roles";
+    say "Entry|ISO_32000_2 Roles";
     say "----|-----";
     say "{.key}|{.value.join: ' '}"
         for %entries.pairs.sort;

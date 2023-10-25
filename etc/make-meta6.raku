@@ -1,6 +1,5 @@
 use v6;
 use JSON::Fast;
-use PDF::ISO_32000;
 
 # Build.pm can also be run standalone 
 sub MAIN(IO() $meta6-in, Str:D :$root!, *@sources) {
@@ -20,7 +19,7 @@ sub MAIN(IO() $meta6-in, Str:D :$root!, *@sources) {
             CATCH { default { die "error processing $file: $_" } }  
             with from-json($file.IO.slurp)<table> -> $table {
                 with $table<caption> -> $caption {
-                    my $table-name = .subst(/^'ISO_32000/'/,'').subst(/'.json'$/,'');
+                    my $table-name = .subst(/^'ISO_32000_2/'/,'').subst(/'.json'$/,'');
                     if $caption ~~ /:s Table (\d+)/ {
                         @resource-index[$0.Int] = $table-name;
                     }
@@ -35,13 +34,13 @@ sub MAIN(IO() $meta6-in, Str:D :$root!, *@sources) {
             @resources.push: $_;
         }
     }
-    given "ISO_32000-index.json" {
+    given "ISO_32000_2-index.json" {
         "$root/resources/$_".IO.spurt: to-json(@resource-index, :sorted-keys);
         @resources.unshift: $_;
     }
-    %provides<PDF::ISO_32000> = 'lib/PDF/ISO_32000.rakumod';
+    %provides<PDF::ISO_32000_2> = 'lib/PDF/ISO_32000_2.rakumod';
     $meta6<provides> = %provides;
     $meta6<resources> = @resources;
-    $meta6<version> = PDF::ISO_32000.^ver.Str;
+##    $meta6<version> = PDF::ISO_32000_2.^ver.Str;
     say to-json($meta6, :sorted-keys);
 }
