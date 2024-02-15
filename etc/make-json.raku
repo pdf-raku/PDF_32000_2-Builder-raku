@@ -34,10 +34,16 @@ sub dump-table(LibXML::Node $table is copy, :$caption!, :@head!) {
     my @rows;
     while $table.defined && $table.tag eq 'Table' {
         @rows.append: $table.<TBody/TR>.map({
-            .find('TH|TD').map({
-                my @paras = .<P>.map: &tidy;
-                edit(@paras.join("\n"));
-            });
+             my @row = .find('TH|TD');
+             if @row.elems >= 3 {
+                 @row.map({
+                     my @paras = .<P>.map: &tidy;
+                     edit(@paras.join("\n"));
+                 });
+             }
+             else {
+                 Empty;
+             }
         });
         $table .= nextNonBlankSibling;
     }
