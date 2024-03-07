@@ -13,19 +13,21 @@ sub build(:$caption, :@head, :@rows) {
         my %seen;
         say "role $*role-name \{";
         for @rows {
-            my ($entry, $type, $desc) = .list;
-            $entry = $entry.trim;
-            $entry ~~ s:s/ \s* '(' .* ')'//;
-            $entry ~~ s:g/' '(\w+)/{camel($0)}/;
-            next if $entry ~~ /:i'other'|'any'|' '/ | '';
-            @pod.push: %( :$entry, :$type, :$desc );
+            my ($entries, $type, $desc) = .list;
+            for $entries.split(',') -> $entry is copy {
+                $entry .= trim;
+                $entry ~~ s:s/ \s* '(' .* ')'//;
+                $entry ~~ s:g/' '(\w+)/{camel($0)}/;
+                next if $entry ~~ /:i'other'|'any'|' '/ | '';
+                @pod.push: %( :$entry, :$type, :$desc );
 
-            unless %seen{$entry}++ {
-                if $entry ~~ /:s^ [<ident> *% '-'] $/ {
-                    say "    method $entry \{...\};";
-                }
-                else {
-                    push @non-idents, $entry;
+                unless %seen{$entry}++ {
+                    if $entry ~~ /:s^ [<ident> *% '-'] $/ {
+                        say "    method $entry \{...\};";
+                    }
+                    else {
+                        push @non-idents, $entry;
+                    }
                 }
             }
         }
